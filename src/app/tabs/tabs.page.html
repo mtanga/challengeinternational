@@ -1,20 +1,90 @@
-<ion-tabs>
 
-  <ion-tab-bar slot="bottom">
+<div class="bgon">
+<!-- begin header menu definition -->
+<ion-menu side="start" type="reveal" menuId="mainMenu" class="main-menu">
+  <ion-header>
+    <ion-toolbar class="mod" color="primary">
+     <ion-title style="text-align:center;">GT Finance</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-content>
+
+  <ion-list class="ion-text-center main-header">
+        <div align="center" (click)="profile()">
+          <ion-avatar>
+            	<img src="../../assets/user.svg">
+          </ion-avatar>
+          <ion-label style="color:white;font-weight:700;" color="white">
+           Michel TANGA
+            <p style="color:white;">
+              <ion-text>hello@micheltanga.com</ion-text>
+            </p>
+          </ion-label>
+        </div>
+  </ion-list>
+
+
+
+      <ion-list>
+            <ion-item>{{ 'chaines.st' | translate }}</ion-item>
+            <ion-item (click)="langue()" lines="none"><ion-icon class="iconMenu" name="language"></ion-icon>{{ 'chaines.lg' | translate }}</ion-item>
+            <ion-item (click)="contact()" lines="none"><ion-icon class="iconMenu" name="mail"></ion-icon>{{ 'chaines.wr' | translate }}</ion-item>
+            <ion-item (click)="invite()" lines="none"><ion-icon class="iconMenu" name="person-add"></ion-icon>{{ 'chaines.inv' | translate }}</ion-item>
+            <ion-item (click)="note()" lines="none"><ion-icon class="iconMenu" name="create"></ion-icon>{{ 'chaines.rat' | translate }}</ion-item>
+            <br/> <br/>
+            <ion-item>{{ 'chaines.usef' | translate }}</ion-item>
+            <ion-item (click)="faq()" lines="none"> <ion-icon class="iconMenu" name="help-circle"></ion-icon>{{ 'chaines.faq' | translate }}</ion-item>
+            <ion-item (click)="help()"lines="none"><ion-icon class="iconMenu" name="information-circle"></ion-icon>{{ 'chaines.aide' | translate }}</ion-item>
+            <ion-item (click)="about()" lines="none"><ion-icon class="iconMenu" name="people-circle"></ion-icon>{{ 'chaines.about' | translate }}</ion-item>
+            <ion-item (click)="terms()" lines="none"> <ion-icon class="iconMenu" name="bookmarks"></ion-icon>{{ 'chaines.term' | translate }}</ion-item>
+            <ion-item (click)="privacy()" lines="none"> <ion-icon class="iconMenu" name="bookmarks"></ion-icon>{{ 'chaines.privacy' | translate }}</ion-item>
+    </ion-list>
+  </ion-content>
+ <ion-footer class="ion-no-border">
+      <ion-toolbar color="secondary">
+        <ion-item lines="none" color="secondary">
+          <ion-label>Reach us via</ion-label>
+          <ion-icon (click)="call()" slot="end" name="call-outline"></ion-icon>
+          <ion-icon (click)="SendEmail()" slot="end" name="mail-outline"></ion-icon>
+          <ion-icon (click)="chat()" slot="end" name="logo-whatsapp"></ion-icon>
+        </ion-item>
+      </ion-toolbar>
+    </ion-footer>
+</ion-menu>
+<!-- end header menu definition -->
+<!-- begin header -->
+<ion-header no-border>
+  <ion-toolbar color="primary" mode="ios">
+    <!-- Menu left-->
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<!-- end header -->
+
+<ion-tabs main>
+
+  <ion-tab-bar slot="bottom" style="border-top: none; background:#f1f5f8;">
     <ion-tab-button tab="tab1">
-      <ion-icon name="triangle"></ion-icon>
-      <ion-label>Tab 1</ion-label>
+      <ion-icon name="arrow-redo"></ion-icon>
+      <ion-label>  {{ 'chaines.sende' | translate }}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="tab2">
-      <ion-icon name="ellipse"></ion-icon>
-      <ion-label>Tab 2</ion-label>
+      <ion-icon name="wallet"></ion-icon>
+      <ion-label>  {{ 'chaines.wallet' | translate }}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="tab3">
-      <ion-icon name="square"></ion-icon>
-      <ion-label>Tab 3</ion-label>
+      <ion-icon name="person-circle"></ion-icon>
+      <ion-label>  {{ 'chaines.account' | translate }}</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 
 </ion-tabs>
+</div>
+
+

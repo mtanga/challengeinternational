@@ -1,0 +1,41 @@
+<ion-content>
+  <div class="header">
+    <ion-buttons>
+      <ion-button routerLink="/tabs/tab1">
+        <ion-icon slot="icon-only" color='light' name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons>
+      <ion-button>
+        <ion-icon slot="icon-only" color='light' name="d-heart"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </div>
+
+  <!-- FOOD DETAIL CARD -->
+  <div class="card">
+    <div class="image">
+        <ion-img src="../../assets/user.svg"></ion-img>
+   
+    </div>
+
+    <div class="card-content">
+      <div class="card-title">
+        <h1 class="ion-no-margin">Title</h1>
+        <p class="ion-no-margin"><sup>$</sup> 23</p>
+      </div>
+    </div>
+
+    <div class="rates">
+      <ion-badge icon="d-time-forward" text=""></ion-badge>
+      <ion-badge icon="star-outline" text=""></ion-badge>
+    </div>
+
+    <div class="about">
+      <h1>About</h1>
+      <p>description</p>
+    </div>
+
+    <ion-button (click)="addItemToCart()">Add to Cart</ion-button>
+  </div>
+</ion-content>
