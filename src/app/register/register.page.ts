@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core'; // 1
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController, Platform, AlertController, LoadingController } from '@ionic/angular';
-import { ConnexionService } from '../services/connexion.service';
-
+import { ToastController } from '@ionic/angular';
+import { WordpressService } from '../services/wordpress.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -11,112 +13,71 @@ import { ConnexionService } from '../services/connexion.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  language: string = this.translateService.currentLang; // 2 
-  texting : any = {};
-  private spinner: any;
-  first_name : any;
-  last_name : any;
-  phone : any;
-  email : any;
-  password : any;
-  repassword : any;
 
-
+  registerForm: FormGroup;
+  errorMessage: string;
+  successMessage: string;
 
   constructor(
-     private translateService: TranslateService,
-     private router: Router,
-     public con: ConnexionService,
-     public loadingCtrl: LoadingController,
-     private alertController : AlertController,
-     private toastController : ToastController,
-  ) { }
+    private router: Router,
+    public formBuilder: FormBuilder,
+    public wordpressService: WordpressService,
+    public authenticationService: AuthenticationService,
+    public toastController: ToastController
+  ) {}
 
   ngOnInit() {
-    let foo = this.translateService.get('chaines').subscribe((data:any)=> {
-      console.log(data);
-      this.texting = data;
-     });
-  }
-
-  register(){
-  if(this.first_name ==null || this.first_name == ""){
-    this.presentToast(this.texting.errFirst);
-  }
-  else if(this.last_name ==null || this.last_name == ""){
-    this.presentToast(this.texting.errLast);
-  }
-  else if(this.phone ==null || this.phone == ""){
-    this.presentToast(this.texting.errPhone);
-  }
-  else if(this.email ==null || this.email == ""){
-    this.presentToast(this.texting.errEmail);
-  }
-  else if(this.password ==null || this.password == ""){
-    this.presentToast(this.texting.errPassword);
-  }
-  else if(this.repassword ==null || this.repassword == ""){
-    this.presentToast(this.texting.errPasswordR);
-  }
-  else if(this.password != this.repassword ){
-    this.presentToast(this.texting.errConfirm);
-  }
-  else{
-      let user = {
-        first_name : this.first_name,
-        last_name   : this.last_name,
-        email      : this.email,
-        password  : this.password,
-        formattedPhone : this.phone,
-        carrierCode : "237",
-        defaultCountry : "cm",
-        role : 2,
-        status : 2,
-        type : "user",
-        phone : this.phone
-      }
-      this.sigin(user);
-  }
-  
-
-}
-  sigin(user: { first_name: any; last_name: any; email: any; password: any; formattedPhone: any; carrierCode: string; defaultCountry: string; role: number; status: number; type: string; phone: any; }) {
-    let datad = { email : user.email};
-    this.con.check("registration/duplicate-email-check/", datad).subscribe( async (data:any)=> {
-      console.log(data);
-      console.log(data.status);
-      if(data){
-       // this.presentToast();
-        
-      }
-    }, (err) => {
-      console.log(err); 
-      //this.presentToast();   
-  });
-  }
-
-  async VerifEmail() {
-    this.spinner = await this.loadingCtrl.create({
-      message: this.texting.verifSMS + this.email
+    this.registerForm = this.formBuilder.group({
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      displayName: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required)
     });
-    await this.spinner.present();
-    setTimeout(() => {
-      this.spinner.dismiss();
-    }, 2000);
-    
   }
 
-login(){
-  this.router.navigate(['/login']);
-}
+  goToLogIn() {
+    this.router.navigate(['/login']);
+  }
 
-async presentToast(message) {
-  const toast = await this.toastController.create({
-    message: message,
-    duration: 3000
-  });
-  toast.present();
-}
+  onSubmit() {
+    const username = 'YOUR_USER_NAME'; // this should be an administrator Username
+    const password = 'YOUR_PASSWORD'; // this should be an administrator Password
 
-
+    // only authenticated administrators can create users
+    this.authenticationService.doLogin(username, password)
+    .pipe(
+      catchError(error => of(error))
+    )
+    .subscribe(
+      res => {
+        if (res.error) {
+          this.errorMessage = "Only authenticated administrators can create users";
+        }
+        else {
+          const userData = {
+            username: this.registerForm.value.username,
+            name: this.registerForm.value.displayName,
+            email: this.registerForm.value.email,
+            password: this.registerForm.value.password
+          };
+          this.authenticationService.doRegister(userData, res['token'])
+          .pipe(
+            catchError(error => of(error))
+          )
+          .subscribe(
+            (result) => {
+              if (res.error) {
+                this.errorMessage = "Only authenticated administrators can create users";
+              } else {
+                this.successMessage = 'Account created successfully. Please log in.';
+              }
+            }
+          );
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
 }

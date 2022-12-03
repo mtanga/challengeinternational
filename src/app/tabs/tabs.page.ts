@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core'; // 1
 import { CallNumber } from '@ionic-native/call-number/ngx';
-import { EmailComposer } from '@ionic-native/email-composer';
+//import { EmailComposer } from '@ionic-native/email-composer';
 import { ToastController, Platform, AlertController } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 declare var cordova;
@@ -34,9 +34,9 @@ export class TabsPage implements OnInit{
   constructor(
     public router: Router,
     private translateService: TranslateService,
-    private callNumber: CallNumber,
+    //private callNumber: CallNumber,
     //private emailComposer: EmailComposer
-        private alertController : AlertController,
+    private alertController : AlertController,
      private toastController : ToastController,
      public platform: Platform,
      private socialSharing: SocialSharing) 
@@ -51,13 +51,11 @@ export class TabsPage implements OnInit{
      });
   }
 
-langue(){
-  this.router.navigate(['/langue']);
-}
+  about(){
+    this.router.navigate(['/credits']);
+  }
 
-profile(){
-  this.router.navigate(['/tabs/tab3']);
-}
+
 
   SendEmail(){
       // Share via email
@@ -68,30 +66,7 @@ profile(){
     });
   }
 
-  call(){
-  this.callNumber.callNumber("+237674717852", true)
-    .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
-  }
 
-  faq(){
-    window.open("https://test.camertour.net/faq", "_self");
-  }
-
-  help(){
-    window.open("https://test.camertour.net/help", "_self");
-  }
-
-  privacy(){
-    window.open("https://test.camertour.net/privacy/81", "_self");
-  }
-
-  about(){
-    window.open("https://afitra.cm/voirhotel", "_self");
-  }
-  terms(){
-    window.open("https://test.camertour.net/terms-amp-conditions/82", "_self");
-  }
 
 
 
@@ -198,7 +173,11 @@ async contact(){
     toast.present();
   }
 
-
+  category(category, id){
+    localStorage.removeItem('category');
+    localStorage.setItem('category', category);
+    this.router.navigate(['/category', id]);
+  }
 
 }
 

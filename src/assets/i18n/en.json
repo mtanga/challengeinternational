@@ -48,9 +48,17 @@
       "passchange" : "Edit password",
 
       "newpass" : "New password",
+      "phoneExi" : "This number is already taken",
+      "emailExi" : "This email is already taken",
+      "phoneVerErr" : "Phone verification failed, please retry later",
+      "emailVerErr" : "Email verification failed, please retry later",
       "confirmpass" : "Confirm password",
       "oldpass" : "Old password",
-
+      "nameErr" : "Please fill in your first and last name correctly",
+      "phoneErr" : "Please fill in your phone number correctly",
+      "emailErr" : "Please fill in your email correctly",
+      "passwordErr" : "Please fill in your email correctly",
+      "passwordMatch" : "Your passwords are not same",
 
       "Enjoy" : "and enjoy",
       "Email" : "Email",

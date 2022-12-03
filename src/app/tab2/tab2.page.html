@@ -1,50 +1,34 @@
 <ion-header class="ion-no-border">
-	<ion-toolbar>
-
-
-		<ion-buttons (click)="notification()"  slot="end">
-			<ion-button class="bordered" fill="solid" color="light">
-				<ion-icon color="primary" name="notifications"></ion-icon>
+	<ion-toolbar color="primary" class="productHeader">
+        <ion-title class="centered-p">Challenge TV</ion-title>
+<!-- 		<ion-buttons slot="end">
+			<ion-button >
+                <ion-icon (click)="notification()" color="light" name="search-outline"></ion-icon>
 			</ion-button>
-		</ion-buttons>
+		</ion-buttons> -->
 	</ion-toolbar>
-
-	<ion-item lines="none">
-
-		<ion-avatar slot="start">
-		<img src="../../assets/user.svg">
-    </ion-avatar>
-			<ion-label>
-				<p>{{ 'chaines.hll' | translate }}</p>
-				<h3>Michel  TANGA</h3>
-			</ion-label>
-
-	</ion-item>
-
 </ion-header>
 
-<ion-content>
-<!--    fab placed to the bottom end 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="arrow-forward-circle"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
 
-
-  <div class="slides ion-margin-bottom">
-    <ion-slides [options]="slidesOptions">
-      <ion-slide>
-        <ion-card>
-          <ion-card-content class="ion-text-center">
-            <ion-card-title class="ion-margin-bottom">{{ 'chaines.solde' | translate }}</ion-card-title>
-            <ion-card-subtitle class="ion-text-center">500 055 USD</ion-card-subtitle>
-            <ion-progress-bar value="0.5" color="custom"></ion-progress-bar>
-          </ion-card-content>
-        </ion-card>
-      </ion-slide>
-    </ion-slides>
+<ion-content padding>
+  <div class="video-list" no-padding mode="md" *ngFor="let info of principal">
+    <div class="container" (click)="viewVideo(info.link)">
+        <img [src]="info.image" alt="Chargement lent! Veuillez verifier votre connexion" style="width:100%;">
+        <div class="text-block">
+            <div color="primary" class="inner">
+                <ion-icon name="play"></ion-icon> 
+              <b>Challenge TV</b><br/>Cliquez ici pour lire la video
+               
+              </div>
+        </div>
+      </div> 
+    <div class="details">
+      <div class="title-block">
+        <div class="title">{{info.title}}</div>
+        <div class="extra">
+            {{info.shortDescription}}
+        </div>
+      </div>
+    </div>
   </div>
-
-
 </ion-content>

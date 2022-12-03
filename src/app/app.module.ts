@@ -18,6 +18,10 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx';
+import { VideoPlayer } from '@ionic-native/video-player/ngx';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
 
 // imports...
 export function createTranslateLoader(http: HttpClient) {
@@ -39,14 +43,18 @@ export function createTranslateLoader(http: HttpClient) {
           useFactory: (createTranslateLoader),  // <--- add this
           deps: [HttpClient] // <--- add this
         } // <--- add this
-      }) // <--- add this
+      }), // <--- add this
+      AngularFireModule.initializeApp(environment.firebase),
+      AngularFireAuthModule
     ],
   providers: [
     StatusBar,
     SplashScreen,
     SocialSharing,
     CallNumber,
+    VideoPlayer,
      HTTP,
+     HttpClient,
     //EmailComposer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

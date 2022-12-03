@@ -7,10 +7,6 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'langue',
-    loadChildren: () => import('./langue/langue.module').then( m => m.LanguePageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
@@ -19,76 +15,32 @@ const routes: Routes = [
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'forgot',
-    loadChildren: () => import('./forgot/forgot.module').then( m => m.ForgotPageModule)
-  },
-  {
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },
-  {
-    path: 'contact',
-    loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule)
-  },
-  {
-    path: 'depot',
-    loadChildren: () => import('./depot/depot.module').then( m => m.DepotPageModule)
-  },
-  {
-    path: 'guest',
-    loadChildren: () => import('./guest/guest.module').then( m => m.GuestPageModule)
-  },
-  {
-    path: 'note',
-    loadChildren: () => import('./note/note.module').then( m => m.NotePageModule)
-  },
-  {
-    path: 'recharge',
-    loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
-  },
-  {
-    path: 'solde',
-    loadChildren: () => import('./solde/solde.module').then( m => m.SoldePageModule)
-  },
-  {
-    path: 'version',
-    loadChildren: () => import('./version/version.module').then( m => m.VersionPageModule)
-  },
-  {
     path: 'onboarding',
     loadChildren: () => import('./onboarding/onboarding.module').then( m => m.OnboardingPageModule)
   },
   {
-    path: 'welcome',
-    loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule)
+    path: 'post/:id',
+    loadChildren: () => import('./post/post.module').then( m => m.PostPageModule)
   },
   {
-    path: 'notifications',
-    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+    path: 'credits',
+    loadChildren: () => import('./credits/credits.module').then( m => m.CreditsPageModule)
   },
   {
-    path: 'editprofil',
-    loadChildren: () => import('./editprofil/editprofil.module').then( m => m.EditprofilPageModule)
+    path: 'suscribe',
+    loadChildren: () => import('./suscribe/suscribe.module').then( m => m.SuscribePageModule)
   },
   {
-    path: 'editpass',
-    loadChildren: () => import('./editpass/editpass.module').then( m => m.EditpassPageModule)
+    path: 'view',
+    loadChildren: () => import('./view/view.module').then( m => m.ViewPageModule)
   },
   {
-    path: 'write',
-    loadChildren: () => import('./write/write.module').then( m => m.WritePageModule)
+    path: 'category/:id',
+    loadChildren: () => import('./category/category.module').then( m => m.CategoryPageModule)
   },
   {
-    path: 'airtime',
-    loadChildren: () => import('./airtime/airtime.module').then( m => m.AirtimePageModule)
-  },
-  {
-    path: 'ask',
-    loadChildren: () => import('./ask/ask.module').then( m => m.AskPageModule)
-  },
-  {
-    path: 'transfer',
-    loadChildren: () => import('./transfer/transfer.module').then( m => m.TransferPageModule)
+    path: 'search',
+    loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
   }
 ];
 @NgModule({

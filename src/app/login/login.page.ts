@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core'; // 1
 import { Router } from '@angular/router';
-import { ToastController, Platform, AlertController } from '@ionic/angular';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { LoadingController } from '@ionic/angular';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -9,77 +10,45 @@ import { ToastController, Platform, AlertController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  language: string = this.translateService.currentLang; // 2 
-  texting : any = {};
 
-  public backgroundImage = '../../assets/img/background/background-5.jpg';
+  loginForm: FormGroup;
+  errorMessage: string;
+
   constructor(
-     private translateService: TranslateService,
-     private router: Router,
-     private alertController : AlertController,
-     private toastController : ToastController,
-  ) { }
+    private router: Router,
+    public loadingController: LoadingController,
+    public formBuilder: FormBuilder,
+    public authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit() {
-      let foo = this.translateService.get('chaines').subscribe((data:any)=> {
-      console.log(data);
-      this.texting = data;
-     });
+    this.loginForm = this.formBuilder.group({
+      username: new FormControl('hashir', Validators.required),
+      password: new FormControl('hashir', Validators.required)
+    });
   }
 
-
-async forgot(){
-    const alert = await this.alertController.create({
-      header: this.texting.SendMeMail,
-      message: this.texting.mailSend,
-      inputs: [
-        {
-          name: 'email',
-          type: 'email',
-          placeholder : 'votre@email.com'
-        }
-      ],
-      buttons: [
-        {
-          text: this.texting.Cancel,
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: this.texting.Validate,
-          handler: (data) => {
-            console.log('Confirm Ok');
-            if(data.email.trim() != ''){
-              console.log('email : ' + data.email);
-              //this.auth.passwordResetEmail(data.email)
-              this.presentToast(this.texting.checksms);
-            }
-            
-          }
-        }
-      ]
+  async doLogin() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...'
     });
-    await alert.present();
-}
+    await loading.present();
 
-register(){
-  this.router.navigate(['/register']);
-}
+    this.authenticationService.doLogin(this.loginForm.value.username, this.loginForm.value.password)
+    .subscribe(res => {
+      this.authenticationService.setUser({
+        token: res['token'],
+        username: this.loginForm.value.username,
+        displayname: res['user_display_name'],
+        email: res['user_email']
+      });
 
-login(){
-  this.router.navigate(['/tabs/tab1']);
-}
-
-
-  /* Function Shows Notifications */
-  async presentToast(message : string){
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 6000
-    });
-    toast.present();
+      loading.dismiss();
+      this.router.navigate(['/posts']);
+    },
+    err => {
+      loading.dismiss();
+      this.errorMessage = "Invalid credentials";
+    })
   }
-
 }

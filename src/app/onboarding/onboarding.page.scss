@@ -6,17 +6,33 @@ ion-slide {
     display: block;
 }
 
-ion-slide img {
-    padding: 15%;
+
+
+.ion-padding3{
+    padding-top: 10%;
+}
+.ion-padding1{
+    padding-top: 40%;
+}
+.ion-padding2{
+    padding-top: 30%;
 }
 
 .slider-text {
-    padding-top: 20%;
+    font-family: "revert";
 }
 
+
+
 .slider-text h2 {
-    font-family: 'SF UI Display Semibold';
+    font-family: sans-serif;
+    font-size: 18px;
 }
+
+.button-native {
+    border-radius: 30px!important;
+}
+
 
 .navigator {
     display: flex;
@@ -25,4 +41,11 @@ ion-slide img {
     width: 100%;
     left: 0;
     bottom: 0;
+}
+
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal>.swiper-pagination-bullets {
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    display: none!important;
 }
